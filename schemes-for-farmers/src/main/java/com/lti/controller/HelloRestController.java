@@ -12,7 +12,7 @@ public class HelloRestController {
 	
 	@RequestMapping(path = "/hello", method = RequestMethod.GET)
 	public @ResponseBody String hello() {
-		return "welcome to Spring MVC";
+		return "HELLO!";
 	}
 
 }
