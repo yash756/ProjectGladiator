@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_farmer")
+@Table(name = "farmer_tbl")
 public class Farmer {
 	
 	@Id
@@ -38,29 +38,36 @@ public class Farmer {
 	@Column(name = "farmer_state")
 	private String state;
 	
+	@Column(name = "farmer_city")
+	private String city;
+	
+	
 	@Column(name = "farmer_area")
 	private double area;
 	
 	@Column(name = "farmer_landAddress")
 	private String landAddress;
 	
+	@Column(name = "farmer_landPincode")
+	private String landPincode;
+	
 	@Column(name = "farmer_bankAccountNo")
 	private int bankAccountNo;
 	
 	@Column(name = "farmer_ifsc")
-	private int ifscCode;
+	private String ifscCode;
 	
 	@Column(name = "farmer_password")
 	private String password;
 	
-	/*@OneToMany(mappedBy = "farmer")
-	private List<CropSold> cropsSold;*/
+	@OneToMany(mappedBy = "farmer")
+	private List<CropsSold> cropsSold;
 	
 	@OneToOne(mappedBy = "farmer")
 	private Insurance insurance;
 	
-	/*@OneToOne(mappedBy = "farmer")
-	private SellRequest request;*/
+	@OneToOne(mappedBy = "farmer")
+	private Request request;
 	
 	//Getters and Setters
 	
@@ -144,11 +151,11 @@ public class Farmer {
 		this.bankAccountNo = bankAccountNo;
 	}
 
-	public int getIfscCode() {
+	public String getIfscCode() {
 		return ifscCode;
 	}
 
-	public void setIfscCode(int ifscCode) {
+	public void setIfscCode(String ifscCode) {
 		this.ifscCode = ifscCode;
 	}
 
@@ -160,13 +167,13 @@ public class Farmer {
 		this.password = password;
 	}
 
-	/*public List<CropSold> getCropsSold() {
+	public List<CropsSold> getCropsSold() {
 		return cropsSold;
 	}
 
-	public void setCropsSold(List<CropSold> cropsSold) {
+	public void setCropsSold(List<CropsSold> cropsSold) {
 		this.cropsSold = cropsSold;
-	}*/
+	}
 
 	public Insurance getInsurance() {
 		return insurance;
@@ -176,13 +183,29 @@ public class Farmer {
 		this.insurance = insurance;
 	}
 
-	/*public SellRequest getRequest() {
+	public Request getRequest() {
 		return request;
 	}
 
-	public void setRequest(SellRequest request) {
+	public void setRequest(Request request) {
 		this.request = request;
-	}*/
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getLandPincode() {
+		return landPincode;
+	}
+
+	public void setLandPincode(String landPincode) {
+		this.landPincode = landPincode;
+	}
 	
 	
 	
