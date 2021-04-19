@@ -109,7 +109,7 @@ public class InsuranceService {
 		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 167);
 		insurance.setFarmer(farmer);
 		if(insuranceRepository.appliedForInsurance(insurance.getFarmer().getId())) {
-			throw new InsuranceServiceException("already applied for insurance.");
+			throw new InsuranceServiceException("already applied for insurance");
 		}
 		else {
 			Insurance insuranceUpdated = (Insurance) insuranceRepository.save(calculatePremium(insurance));
