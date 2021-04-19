@@ -28,7 +28,7 @@ public class InsuranceService {
 	//function to calculate premium and total insured sum
 	public Insurance calculatePremium(Insurance insurance) {
 		
-		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 83);
+		//Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 83);
 		
 		List<String> commercialCrops = new ArrayList<String>();
 		commercialCrops.add("jute");
@@ -53,7 +53,7 @@ public class InsuranceService {
 				insurance.setPremium(insurance.getSumInsured() - insurance.getSharePremium());
 				insurance.setInsuranceCompany(companies.get(new Random().nextInt(companies.size())));
 				//new line test
-				insurance.setFarmer(farmer);
+				//insurance.setFarmer(farmer);
 				
 			}
 			//sum insured before year 2020 is 35000 per hec.
