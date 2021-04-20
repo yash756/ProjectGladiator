@@ -106,7 +106,7 @@ public class InsuranceService {
 	//function to save insurance data into DB
 	public int applyForInsurance(Insurance insurance) {
 		//add if-else to check if already applied for insurance
-		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 167);
+		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 174);
 		insurance.setFarmer(farmer);
 		if(insuranceRepository.appliedForInsurance(insurance.getFarmer().getId())) {
 			throw new InsuranceServiceException("already applied for insurance");
