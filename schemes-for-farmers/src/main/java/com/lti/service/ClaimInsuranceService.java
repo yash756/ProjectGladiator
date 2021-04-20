@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.entity.ClaimInsurance;
 import com.lti.entity.Insurance;
+import com.lti.exception.ClaimInsuranceServiceException;
 import com.lti.repository.ClaimInsuranceRepository;
 
 @Service
@@ -20,11 +21,17 @@ public class ClaimInsuranceService {
 	public int claim(ClaimInsurance ci) {
 		Insurance insurance = (Insurance) claimInsuranceRepository.fetch(Insurance.class, ci.getInsurance().getPolicyNo());
 		//add if-else to check if already claimed
-		ci.setInsuranceCompany(insurance.getInsuranceCompany());
-		ci.setInsureeName(insurance.getFarmer().getName());
-		ci.setSumInsured(insurance.getSumInsured());
-		ClaimInsurance ci1 = (ClaimInsurance) claimInsuranceRepository.save(ci); 
-		return ci1.getId();
+		if(claimInsuranceRepository.appliedForClaim(ci.getInsurance().getPolicyNo())) {
+			throw new ClaimInsuranceServiceException("already applied for claim");
+		}
+		else {
+			ci.setInsuranceCompany(insurance.getInsuranceCompany());
+			ci.setInsureeName(insurance.getFarmer().getName());
+			ci.setSumInsured(insurance.getSumInsured());
+			ci.setInsurance(insurance);
+			ClaimInsurance ci1 = (ClaimInsurance) claimInsuranceRepository.save(ci); 
+			return ci1.getId();
+		}
 	}
 	
 	

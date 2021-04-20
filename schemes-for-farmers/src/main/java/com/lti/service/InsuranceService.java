@@ -98,7 +98,7 @@ public class InsuranceService {
 			insurance.setInsuranceCompany(companies.get(new Random().nextInt(companies.size())));
 
 		}
-		//insurance.setFarmer(farmer);
+		insurance.setFarmer(farmer);
 		return insurance;
 		
 	}
@@ -107,12 +107,13 @@ public class InsuranceService {
 	public int applyForInsurance(Insurance insurance) {
 		//add if-else to check if already applied for insurance
 		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, insurance.getFarmer().getId());
-		insurance.setFarmer(farmer);
-		if(insuranceRepository.appliedForInsurance(insurance.getFarmer().getId())) {
+		//insurance.setFarmer(farmer);
+		if(insuranceRepository.appliedForInsurance(farmer.getId())) {
 			throw new InsuranceServiceException("already applied for insurance");
 		}
 		else {
 			Insurance insuranceUpdated = (Insurance) insuranceRepository.save(calculatePremium(insurance));
+			//insuranceUpdated.setFarmer(farmer);
 			return insuranceUpdated.getPolicyNo();
 		}
 	}
