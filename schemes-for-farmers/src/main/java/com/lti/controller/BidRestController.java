@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lti.dto.BidStatus;
 import com.lti.dto.MaxBid;
-import com.lti.dto.PlaceBidDto;
 import com.lti.dto.Status;
+import com.lti.entity.Bid;
+import com.lti.exception.BidServiceException;
 import com.lti.exception.CropServiceException;
 import com.lti.service.BidService;
 
@@ -24,18 +27,21 @@ public class BidRestController {
 	private BidService bidService;
 
 	@PostMapping("/placeBids")
-	public Status placebid(@RequestBody PlaceBidDto placeBidDto) {
+	public BidStatus placebid(@RequestBody Bid bid) {
 		try {
-			bidService.savebid(placeBidDto);
-			Status status = new Status();
+			
+			//bidService.savebid(bid);
+			Bid bid1 = bidService.savebid(bid);
+			BidStatus status = new BidStatus();
+			status.setBidId(bid1.getBidId());
 			status.setStatus(true);
 			status.setMessage("Bids PLaced suucessfully");
 
 			return status;
 
-		} catch (CropServiceException e) {
+		} catch (BidServiceException e) {
 
-			Status status = new Status();
+			BidStatus status = new BidStatus();
 			status.setStatus(false);
 			status.setMessage(e.getMessage());
 			return status;
@@ -43,29 +49,5 @@ public class BidRestController {
 		}
 	}
 
-	/*@GetMapping("/bid")
-	public MaxBid getmaxBidbycropid(@RequestParam("cropId") Integer cropId) {
-		try {
-			double amount = bidService.getBid(cropId);
-			Status status = new Status();
-			status.setStatus(true);
-			status.setMessage("Bids Available");
-			MaxBid bid = new MaxBid();
-			bid.setAmount(amount);
-			bid.setStatus(status);
-			return bid;
-
-		} catch (CropServiceException e) {
-
-			MaxBid bid = new MaxBid();
-			Status status = new Status();
-			status.setStatus(false);
-			status.setMessage(e.getMessage());
-			bid.setStatus(status);
-			return bid;
-
-		}
-	}*/
-
-
+	
 }

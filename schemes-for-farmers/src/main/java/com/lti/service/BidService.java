@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.dto.BidsDto;
-import com.lti.dto.PlaceBidDto;
 import com.lti.entity.Bid;
 import com.lti.entity.Bidder;
 import com.lti.entity.Farmer;
@@ -40,67 +39,30 @@ public class BidService {
 	@Autowired
 	private MarketPlaceRepository markRepo;
 	
-	//@Autowired
-	//private FarmerRepository farmRepo;
-	
-	/*public int savebid(PlaceBidDto placebiddto) {
-		try {
-				Bid bid = new Bid();
-
-				//Request request = reqRepo.findbyId(placebiddto.getRequestId());
-				
-				MarketPlace marketPlace = markRepo.findbyId(placebiddto.getItemNo());
-
-				Bidder bidder = bidderRepo.findbyId(placebiddto.getBidderId());
-
-				bid.setMarketplace(marketPlace);
-				bid.setBidder(bidder);
-
-				double currentbid = bidRepo.maxbid(placebiddto.getItemNo());
-
-				if (currentbid == 0.0) {
-					currentbid = marketPlace.getBasePrice();
-
-				if (currentbid + 99.9 > placebiddto.getBidAmount()) {
-
-					throw new BidServiceException("Bid amount should be atleast 100 greater than current bid amount");
-				}
-				bid.setBidAmount(placebiddto.getBidAmount());
-
-				bidRepo.save(bid);
-	
-			}	
-				return bid.getBidId();
-
-		}catch (EmptyResultDataAccessException e) {
-				throw new BidServiceException("Failed to add bid");
-			}
-		
-	}*/
-	
-	public int savebid(Bid bid) {				
+	public Bid savebid(Bid bid) {				
 			try {
 			
 				Bidder bidder = bidderRepo.findbyId(bid.getBidder().getBidderId());
-				MarketPlace marketPlace = markRepo.findbyId(bid.getMarketplace().getItemNo());
+
+				MarketPlace marketPlace = markRepo.findbyId(bid.getMarketPlace().getItemNo());
 				
-				double currentbid = bidRepo.maxbid(bid.getMarketplace().getItemNo());
+				double currentbid = bidRepo.maxbid(bid.getMarketPlace().getItemNo());
 
-				if (currentbid == 0.0) {
+				if (currentbid == 0.0) 
 					currentbid = marketPlace.getBasePrice();
-
-				if (currentbid + 99.9 > bid.getBidAmount()) {
+				
+				else if (currentbid + 99.9 > bid.getBidAmount()) {
 
 					throw new BidServiceException("Bid amount should be atleast 100 greater than current bid amount");
 				}
 				bid.setBidAmount(bid.getBidAmount());
-
 				bid.setBidder(bidder);
-				bid.setMarketplace(marketPlace);
+				bid.setMarketPlace(marketPlace);
+
 				bidRepo.save(bid);
 	
-			}	
-				return bid.getBidId();
+				
+				return bid;
 
 		}catch (EmptyResultDataAccessException e) {
 				throw new BidServiceException("Failed to add bid");
