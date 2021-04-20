@@ -21,8 +21,10 @@ public class Bid {
 	
 	@Column(name="base_price")
 	private double basePrice;
+	
 	@Column(name="bid_amount")
 	private double bidAmount;
+	
 	@Column(name="date_of_bid")
 	private LocalDate dateOfBid;
 	
@@ -74,13 +76,14 @@ public class Bid {
 		this.bidder = bidder;
 	}
 
-	public MarketPlace getMarketplace() {
+	public MarketPlace getMarketPlace() {
 		return marketPlace;
 	}
 
-	public void setMarketplace(MarketPlace marketPlace) {
+	public void setMarketPlace(MarketPlace marketPlace) {
 		this.marketPlace = marketPlace;
 	}
+
 	
 	
 	
