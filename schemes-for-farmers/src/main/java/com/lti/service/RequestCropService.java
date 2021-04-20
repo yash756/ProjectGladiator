@@ -1,6 +1,8 @@
 package com.lti.service;
 
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,28 +51,11 @@ public class RequestCropService {
 		}
 
 	}
+	
+	public List<Request> getRequestedCrops() {
+		List<Request> list = farmerRepo.fetchRequestCrop();
+		return list;
 
+}
 
-//	public List<ShowAllCropsDto> getCrops() {
-//		try {
-//			List<ShowAllCropsDto> AvailableCrops = new ArrayList<ShowAllCropsDto>();
-//			List<Crop> crops = cropRepo.findCrops();
-//			for (Crop crop : crops) {
-//				ShowAllCropsDto scrop = new ShowAllCropsDto();
-//				scrop.setId(crop.getId());
-//				scrop.setName(crop.getName());
-//				scrop.setSoilPh(crop.getSoilPh());
-//				scrop.setCropType(crop.getCropType());
-//				scrop.setFertilizerType(crop.getFertilizerType());
-//				scrop.setBasePrice(crop.getBasePrice());
-//				scrop.setQuantity(crop.getQuantity());
-//				scrop.setFullname(crop.getUser().getFullname());
-//				scrop.setEndDate(crop.getEndDate());
-//				AvailableCrops.add(scrop);
-//			}
-//			return AvailableCrops;
-//		} catch (EmptyResultDataAccessException e) {
-//			throw new CropServiceException("No crops available");
-//		}
-//	}
 }

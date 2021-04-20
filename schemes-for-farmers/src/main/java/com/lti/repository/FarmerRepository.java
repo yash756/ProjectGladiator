@@ -1,8 +1,11 @@
 package com.lti.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.lti.entity.Farmer;
+import com.lti.entity.Request;
 
 @Repository
 public class FarmerRepository extends GenericRepository{
@@ -26,5 +29,12 @@ public class FarmerRepository extends GenericRepository{
 	
 	public Farmer findbyId(int id) {
 		return entityManager.find(Farmer.class, id);
+	}
+	
+	public List<Request> fetchRequestCrop(){
+		return
+				entityManager
+				.createQuery("select r from Request r ")
+				.getResultList();
 	}
 }

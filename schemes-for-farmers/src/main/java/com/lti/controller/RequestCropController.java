@@ -37,26 +37,6 @@ public class RequestCropController {
 		}
 	}
 
-//	@GetMapping(path = "/crops")
-//	public CropsDto getCrops() {
-//		try {
-//			List<ShowAllCropsDto> crops = cropService.getCrops();
-//			CropsDto cropdto = new CropsDto();
-//			cropdto.setCrops(crops);
-//			Status status = new Status();
-//			status.setStatus(com.lti.status.Status.StatusType.SUCCESS);
-//			status.setMessage("Crops Available");
-//			cropdto.setStatus(status);
-//			return cropdto;
-//		} catch (CropServiceException e) {
-//
-//			Status status = new Status();
-//			status.setStatus(com.lti.status.Status.StatusType.FAILURE);
-//			status.setMessage(e.getMessage());
-//			CropsDto cropdto = new CropsDto();
-//			cropdto.setStatus(status);
-//			return cropdto;
-//		}
-//	}
+
 	
 }
