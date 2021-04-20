@@ -17,6 +17,7 @@ import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 import com.lti.exception.BidServiceException;
 import com.lti.exception.CropServiceException;
+import com.lti.exception.RequestCropServiceException;
 import com.lti.repository.BidRepo;
 import com.lti.repository.BidderRepository;
 import com.lti.repository.FarmerRepository;
@@ -42,7 +43,7 @@ public class BidService {
 	//@Autowired
 	//private FarmerRepository farmRepo;
 	
-	public int savebid(PlaceBidDto placebiddto) {
+	/*public int savebid(PlaceBidDto placebiddto) {
 		try {
 				Bid bid = new Bid();
 
@@ -66,6 +67,36 @@ public class BidService {
 				}
 				bid.setBidAmount(placebiddto.getBidAmount());
 
+				bidRepo.save(bid);
+	
+			}	
+				return bid.getBidId();
+
+		}catch (EmptyResultDataAccessException e) {
+				throw new BidServiceException("Failed to add bid");
+			}
+		
+	}*/
+	
+	public int savebid(Bid bid) {				
+			try {
+			
+				Bidder bidder = bidderRepo.findbyId(bid.getBidder().getBidderId());
+				MarketPlace marketPlace = markRepo.findbyId(bid.getMarketplace().getItemNo());
+				
+				double currentbid = bidRepo.maxbid(bid.getMarketplace().getItemNo());
+
+				if (currentbid == 0.0) {
+					currentbid = marketPlace.getBasePrice();
+
+				if (currentbid + 99.9 > bid.getBidAmount()) {
+
+					throw new BidServiceException("Bid amount should be atleast 100 greater than current bid amount");
+				}
+				bid.setBidAmount(bid.getBidAmount());
+
+				bid.setBidder(bidder);
+				bid.setMarketplace(marketPlace);
 				bidRepo.save(bid);
 	
 			}	
