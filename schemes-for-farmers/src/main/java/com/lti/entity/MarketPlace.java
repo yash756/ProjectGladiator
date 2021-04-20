@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="market_place")
@@ -26,15 +29,21 @@ public class MarketPlace {
 	private String cropType;
 	@Column(name="base_price")
 	private double basePrice;
-	private String Status;
+	private String status;
 	private float quantity;
 	
+	@Transient
+	private double maxBid;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="marketPlace")
 	private List<Bid> bids;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy="marketPlace")
 	private CropsSold cropsSold;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="request_id")
 	private Request request;
@@ -71,15 +80,17 @@ public class MarketPlace {
 		this.basePrice = basePrice;
 	}
 
+	
+	
+	
+
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
-	
-	
 
 	public float getQuantity() {
 		return quantity;
@@ -111,6 +122,15 @@ public class MarketPlace {
 
 	public void setCropsSold(CropsSold cropsSold) {
 		this.cropsSold = cropsSold;
+	}
+	
+
+	public double getMaxBid() {
+		return maxBid;
+	}
+
+	public void setMaxBid(double maxBid) {
+		this.maxBid = maxBid;
 	}
 	
 	

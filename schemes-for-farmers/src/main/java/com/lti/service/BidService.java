@@ -88,5 +88,24 @@ public class BidService {
 		}
 	}
 	
+	public MarketPlace getCropDetails(int itemNo) {
+		
+		MarketPlace mark = bidRepo.fetch(MarketPlace.class, itemNo);
+		
+		mark.setMaxBid(bidRepo.maxbid(itemNo));
+		return  mark;
+	}
+
+	public List<MarketPlace> getMarketPlaceCrops() {
+		List<MarketPlace> list = bidRepo.fetchMarketPlaceCrops();
+		
+		for(MarketPlace mark: list) {
+			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));
+			
+		}
+		
+		return list;
+	}
+	
 
 }
