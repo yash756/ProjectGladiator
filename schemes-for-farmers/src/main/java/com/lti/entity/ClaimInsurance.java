@@ -38,6 +38,20 @@ public class ClaimInsurance {
 	@OneToOne
 	@JoinColumn(name = "insurance_policyNo")
 	private Insurance insurance;
+	
+	//making changes for test
+	@OneToOne
+	@JoinColumn(name = "farmer_id")
+	private Farmer farmer;
+	
+
+	public Farmer getFarmer() {
+		return farmer;
+	}
+
+	public void setFarmer(Farmer farmer) {
+		this.farmer = farmer;
+	}
 
 	public int getId() {
 		return id;

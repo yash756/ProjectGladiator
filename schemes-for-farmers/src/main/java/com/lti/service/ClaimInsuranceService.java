@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.entity.ClaimInsurance;
+import com.lti.entity.Farmer;
 import com.lti.entity.Insurance;
 import com.lti.exception.ClaimInsuranceServiceException;
 import com.lti.repository.ClaimInsuranceRepository;
@@ -17,10 +18,13 @@ public class ClaimInsuranceService {
 	private ClaimInsuranceRepository claimInsuranceRepository;
 	
 	//function to claim insurance
-	//from client only policy number, loss date and cause of loss will come
+	//from client only farmerId, loss date and cause of loss will come
 	public int claim(ClaimInsurance ci) {
-		Insurance insurance = (Insurance) claimInsuranceRepository.fetch(Insurance.class, ci.getInsurance().getPolicyNo());
+		
+		Farmer farmer = (Farmer) claimInsuranceRepository.fetch(Farmer.class, ci.getFarmer().getId());
+		Insurance insurance = (Insurance) claimInsuranceRepository.fetch(Insurance.class, farmer.getInsurance().getPolicyNo());//ci.getInsurance().getPolicyNo()
 		//add if-else to check if already claimed
+		ci.setInsurance(insurance);
 		if(claimInsuranceRepository.appliedForClaim(ci.getInsurance().getPolicyNo())) {
 			throw new ClaimInsuranceServiceException("already applied for claim");
 		}
