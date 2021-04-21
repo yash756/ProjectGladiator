@@ -32,7 +32,8 @@ public class ClaimInsuranceService {
 			ci.setInsuranceCompany(insurance.getInsuranceCompany());
 			ci.setInsureeName(insurance.getFarmer().getName());
 			ci.setSumInsured(insurance.getSumInsured());
-			ci.setInsurance(insurance);
+			//ci.setInsurance(insurance);
+			//ci.setFarmer(farmer);
 			ClaimInsurance ci1 = (ClaimInsurance) claimInsuranceRepository.save(ci); 
 			return ci1.getId();
 		}
