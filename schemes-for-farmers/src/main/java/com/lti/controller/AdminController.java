@@ -15,10 +15,6 @@ public class AdminController {
 	@Autowired
 	private RequestCropService requestCropService;
 	
-	@GetMapping(path="/viewCrops")
-	public List<Request> viewAll() {
-		List<Request> requestList = requestCropService.getRequestedCrops();
-		return requestList;
-	}
+	
 	
 }

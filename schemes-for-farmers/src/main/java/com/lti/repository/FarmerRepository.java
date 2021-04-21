@@ -31,10 +31,5 @@ public class FarmerRepository extends GenericRepository{
 		return entityManager.find(Farmer.class, id);
 	}
 	
-	public List<Request> fetchRequestCrop(){
-		return
-				entityManager
-				.createQuery("select r from Request r ")
-				.getResultList();
-	}
+	
 }

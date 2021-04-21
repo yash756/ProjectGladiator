@@ -1,9 +1,13 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -37,6 +41,29 @@ public class RequestCropController {
 		}
 	}
 
+	@GetMapping(path="/viewCrops")
+	public List<Request> viewAll() {
+		List<Request> requestList = requestCropService.getRequestedCrops();
+		return requestList;
+	}
+	
+	@GetMapping(path="/addToMarketPlace")
+	public Status addToMarket(@RequestParam("requestId") int requestId) {
+		try {
+			int id = requestCropService.addToMarket(requestId);
+			Status status = new Status();
+			status.setStatus(true);
+			status.setMessage("Crop added to market Successfully");
+			status.setId(id);
+			return status;
+		} catch (RequestCropServiceException e) {
 
+			Status status = new Status();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
+
+		}
+	}
 	
 }

@@ -1,5 +1,6 @@
 package com.lti.service;
 
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.lti.entity.Farmer;
+import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 import com.lti.exception.RequestCropServiceException;
 import com.lti.repository.FarmerRepository;
+import com.lti.repository.MarketPlaceRepository;
 import com.lti.repository.RequestCropRepository;
 
 @Service
@@ -25,6 +28,9 @@ public class RequestCropService {
 	
 	@Autowired
 	private FarmerRepository farmerRepo;
+	
+	@Autowired
+	private MarketPlaceRepository marketRepo;
 
 	
 	public void register(Request request) {
@@ -53,9 +59,33 @@ public class RequestCropService {
 	}
 	
 	public List<Request> getRequestedCrops() {
-		List<Request> list = farmerRepo.fetchRequestCrop();
+		List<Request> list = requestCropRepo.fetchRequestCrop();
 		return list;
 
 }
+	public int addToMarket(int requestId) {
+//		Request r = new Request();
+		Request request =  requestCropRepo.fetch(Request.class,requestId);
+		LocalDateTime start = LocalDateTime.now();
+		double bidCuttOffTime = request.getBidCutoffTime();
+		LocalDateTime end = start.plusHours((long) bidCuttOffTime);
+		
+		MarketPlace m = new MarketPlace();
+		
+//		List<Request> list = farmerRepo.fetchRequestCrop();
+//		for(Request req : list) {
+			m.setCropName(request.getCropName());
+			m.setCropType(request.getCropType());
+			m.setBasePrice(request.getBasePrice());
+			m.setStatus("unsold");
+			m.setQuantity(request.getQuantity());
+			m.setStartTime(start);
+			m.setEndTime(end);
+			m.setRequest(request);
+			marketRepo.save(m);
+			
+			return m.getItemNo();
+		//}
+	}
 
 }
