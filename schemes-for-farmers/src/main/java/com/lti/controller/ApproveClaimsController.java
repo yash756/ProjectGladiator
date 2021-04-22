@@ -17,6 +17,7 @@ public class ApproveClaimsController {
 	@Autowired
 	private ApproveClaimService approveClaimService;
 	
+	
 	@GetMapping(path = "/approveClaims")
 	public List<ClaimInsurance> viewClaims(){
 		List<ClaimInsurance> approvalList = approveClaimService.getClaims();
