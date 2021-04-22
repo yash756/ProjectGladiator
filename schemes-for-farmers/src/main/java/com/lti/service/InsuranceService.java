@@ -30,6 +30,7 @@ public class InsuranceService {
 	public Insurance calculatePremium(Insurance insurance) {
 		
 		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, insurance.getFarmer().getId());
+		insurance.setFarmer(farmer);
 		
 		List<String> commercialCrops = new ArrayList<String>();
 		commercialCrops.add("jute");
@@ -99,7 +100,7 @@ public class InsuranceService {
 
 		}
 		
-		insurance.setFarmer(farmer);
+		
 		return insurance;
 		
 	}

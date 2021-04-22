@@ -22,7 +22,9 @@ public class ClaimInsuranceService {
 	public int claim(ClaimInsurance ci) {
 		
 		Farmer farmer = (Farmer) claimInsuranceRepository.fetch(Farmer.class, ci.getFarmer().getId());
-		Insurance insurance = (Insurance) claimInsuranceRepository.fetch(Insurance.class, farmer.getInsurance().getPolicyNo());//ci.getInsurance().getPolicyNo()
+		
+		Insurance insurance = claimInsuranceRepository.fetchInsurance(farmer.getId());
+		//Insurance insurance = (Insurance) claimInsuranceRepository.fetch(Insurance.class, pNo);
 		//add if-else to check if already claimed
 		ci.setInsurance(insurance);
 		if(claimInsuranceRepository.appliedForClaim(ci.getInsurance().getPolicyNo())) {
