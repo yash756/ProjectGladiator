@@ -27,11 +27,11 @@ public class InsuranceController {
 	@PostMapping("/apply-for-insurance")
 	public InsuranceStatus apply(@RequestBody Insurance insurance) {
 		try {
-			int id = insuranceService.applyForInsurance(insurance);
+			Insurance sample = insuranceService.applyForInsurance(insurance);
 			InsuranceStatus status = new InsuranceStatus();
 			status.setStatus(true);
 			status.setMessage("succesfully applied for insurance");
-			status.setAppliedInsuranceId(id);
+			status.setAppliedInsuranceId(sample.getPolicyNo());
 			return status;
 			
 		}

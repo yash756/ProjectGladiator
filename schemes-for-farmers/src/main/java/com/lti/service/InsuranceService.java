@@ -100,13 +100,12 @@ public class InsuranceService {
 
 		}
 		
-		
 		return insurance;
 		
 	}
 	
 	//function to save insurance data into DB
-	public int applyForInsurance(Insurance insurance) {
+	public Insurance applyForInsurance(Insurance insurance) {
 		//add if-else to check if already applied for insurance
 		//Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, insurance.getFarmer().getId());
 		//insurance.setFarmer(farmer);
@@ -116,7 +115,7 @@ public class InsuranceService {
 		//else {
 			Insurance insuranceUpdated = (Insurance) insuranceRepository.save(calculatePremium(insurance));
 			//insuranceUpdated.setFarmer(farmer);
-			return insuranceUpdated.getPolicyNo();
+			return insuranceUpdated;
 		}
 	//}
 }

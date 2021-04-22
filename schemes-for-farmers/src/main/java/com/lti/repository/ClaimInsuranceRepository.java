@@ -19,10 +19,10 @@ public class ClaimInsuranceRepository extends GenericRepository {
 			return false;
 	}
 	
-	public Insurance fetchInsurance(int farmerId) {
-		String jpql = "select i from Insurance i inner join i.farmer ifmr where ifmr.id = :farmerId";
+	public int fetchInsurance(int farmerId) {
+		String jpql = "select i.policyNo from Insurance i where i.farmer.id = :farmerId";
 		Query query = entityManager.createQuery(jpql).setParameter("farmerId", farmerId);
-		return  (Insurance) query.getSingleResult();
+		return  (int) query.getSingleResult();
 	}
 	
 }

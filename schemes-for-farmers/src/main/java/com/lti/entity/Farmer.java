@@ -63,7 +63,7 @@ public class Farmer {
 	@OneToMany(mappedBy = "farmer")
 	private List<CropsSold> cropsSold;
 	
-	@OneToOne(mappedBy = "farmer")
+	@OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
 	private Insurance insurance;
 	
 	@OneToOne(mappedBy = "farmer")
