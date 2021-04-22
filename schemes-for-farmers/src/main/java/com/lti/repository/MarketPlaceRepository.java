@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lti.entity.MarketPlace;
 /*
- * Fetching all available crops that are open for bidding
+ * Fetching all available crops that are open for bidding process
  */
 
 @Repository
