@@ -1,9 +1,11 @@
 package com.lti.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 
 @Repository
@@ -28,9 +30,20 @@ public class RequestCropRepository extends GenericRepository{
 	}
 
 	public List<Request> fetchRequestCrop(){
+		
 		return
 				entityManager
-				.createQuery("select r from Request r INNER JOIN r.marketPlace m where r.requestId != m.requestId")
+				//.createQuery("select r from Request r ")
+				.createQuery("select r from Request r LEFT OUTER JOIN r.marketplace m ")
+				.getResultList();
+	}
+	
+	public List<MarketPlace> fetchMarketCrop(){
+		LocalDateTime now = LocalDateTime.now();
+		return
+				entityManager
+				.createQuery("select m from MarketPlace m where m.endTime < :now and m.status = :s")
+				.setParameter("now", now).setParameter("s","unsold")
 				.getResultList();
 	}
 }

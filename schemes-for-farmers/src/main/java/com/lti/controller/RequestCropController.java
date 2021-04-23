@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.lti.dto.Status;
+import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 import com.lti.exception.RequestCropServiceException;
 import com.lti.service.RequestCropService;
@@ -30,6 +31,7 @@ public class RequestCropController {
 			Status status = new Status();
 			status.setStatus(true);
 			status.setMessage("Crop added Successfully");
+			
 			return status;
 		} catch (RequestCropServiceException e) {
 
@@ -54,6 +56,31 @@ public class RequestCropController {
 			Status status = new Status();
 			status.setStatus(true);
 			status.setMessage("Crop added to market Successfully");
+			status.setId(id);
+			return status;
+		} catch (RequestCropServiceException e) {
+
+			Status status = new Status();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
+
+		}
+	}
+	
+	@GetMapping(path="/viewAdminMarket")
+	public List<MarketPlace> viewAdminMarket() {
+		List<MarketPlace> requestList = requestCropService.getMarketCrops();
+		return requestList;
+	}
+	
+	@GetMapping(path="/approveAsSold")
+	public Status approveAsSold(@RequestParam("itemNo") int itemNo) {
+		try {
+			int id = requestCropService.approveAsSold(itemNo);
+			Status status = new Status();
+			status.setStatus(true);
+			status.setMessage("Crop Sold");
 			status.setId(id);
 			return status;
 		} catch (RequestCropServiceException e) {

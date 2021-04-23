@@ -47,7 +47,7 @@ public class Request {
 	@OneToOne(mappedBy="request")
 	private MarketPlace marketplace;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name="farmer_id")
 	private Farmer farmer;
