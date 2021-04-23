@@ -39,12 +39,12 @@ public class ClaimInsurance {
 	@Column(name = "claim_lossDate")
 	private LocalDate lossDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "insurance_policyNo")
 	private Insurance insurance;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "farmer_id")
 	private Farmer farmer;

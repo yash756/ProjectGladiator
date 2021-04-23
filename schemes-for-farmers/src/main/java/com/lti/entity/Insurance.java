@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_insurance")
 public class Insurance {
@@ -45,10 +47,12 @@ public class Insurance {
 	@Column(name = "insurance_year")
 	private LocalDate year;
 	
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "farmer_id")
 	private Farmer farmer;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "insurance", cascade = CascadeType.ALL)
 	private ClaimInsurance claim;
 
