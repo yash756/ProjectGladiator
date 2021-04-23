@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "farmer_tbl")
 public class Farmer {
@@ -60,15 +62,19 @@ public class Farmer {
 	@Column(name = "farmer_password")
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "farmer")
 	private List<CropsSold> cropsSold;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "farmer")
 	private Insurance insurance;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "farmer")
 	private Request request;
 	
+	@JsonIgnore
 	//test changes
 	@OneToOne(mappedBy = "farmer")
 	private ClaimInsurance claimInsurance;	
