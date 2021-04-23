@@ -11,7 +11,11 @@ public class CheckStatusBidderRepository extends GenericRepository {
 	
 	public List<Bid> fetchbids(int bidderId){
 		return entityManager
-				.createQuery("select b from Bid B where b.bidder.bidderId = :bidderId" )
+				.createQuery("select b from Bid b where b.bidder.bidderId = :bidderId" )
+				.setParameter("bidderId", bidderId)
 				.getResultList();
+	
+	//join two tables marketplace and bid
+	
 	}
 }

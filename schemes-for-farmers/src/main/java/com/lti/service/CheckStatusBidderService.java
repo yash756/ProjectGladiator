@@ -18,8 +18,10 @@ public class CheckStatusBidderService {
 	private CheckStatusBidderRepository checkStatusBidderRepository;
 	
 	//from client bidder object will come
+	//this function will return all the bids placed by a bidder
 	public List<Bid> getPlacedBids(Bidder bidder){
 		List<Bid> list = checkStatusBidderRepository.fetchbids(bidder.getBidderId());
+		//List<Bid> list = checkStatusBidderRepository.fetchbids(12);
 		return list;
 	}
 
