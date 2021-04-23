@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="request_tbl")
 public class Request {
@@ -41,9 +43,11 @@ public class Request {
 //	@Column(name="end_date")
 //	private LocalDate endDate;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy="request")
 	private MarketPlace marketplace;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="farmer_id")
 	private Farmer farmer;

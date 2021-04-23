@@ -29,7 +29,7 @@ public class InsuranceService {
 	//function to calculate premium and total insured sum
 	public Insurance calculatePremium(Insurance insurance) {
 		
-		//Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 163);
+		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, insurance.getFarmer().getId());
 		
 		List<String> commercialCrops = new ArrayList<String>();
 		commercialCrops.add("jute");
@@ -99,6 +99,7 @@ public class InsuranceService {
 
 		}
 		
+		insurance.setFarmer(farmer);
 		return insurance;
 		
 	}
@@ -106,16 +107,17 @@ public class InsuranceService {
 	//function to save insurance data into DB
 	public int applyForInsurance(Insurance insurance) {
 		//add if-else to check if already applied for insurance
-		Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, 167);
-		insurance.setFarmer(farmer);
-		if(insuranceRepository.appliedForInsurance(insurance.getFarmer().getId())) {
-			throw new InsuranceServiceException("already applied for insurance");
-		}
-		else {
+		//Farmer farmer = (Farmer) insuranceRepository.fetch(Farmer.class, insurance.getFarmer().getId());
+		//insurance.setFarmer(farmer);
+		//if(insuranceRepository.appliedForInsurance(farmer.getId())) {
+			//throw new InsuranceServiceException("already applied for insurance");
+		//}
+		//else {
 			Insurance insuranceUpdated = (Insurance) insuranceRepository.save(calculatePremium(insurance));
+			//insuranceUpdated.setFarmer(farmer);
 			return insuranceUpdated.getPolicyNo();
 		}
-	}
+	//}
 }
 
 

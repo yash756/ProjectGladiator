@@ -1,5 +1,7 @@
 package com.lti.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.lti.entity.Request;
@@ -25,4 +27,10 @@ public class RequestCropRepository extends GenericRepository{
 
 	}
 
+	public List<Request> fetchRequestCrop(){
+		return
+				entityManager
+				.createQuery("select r from Request r INNER JOIN r.marketPlace m where r.requestId != m.requestId")
+				.getResultList();
+	}
 }

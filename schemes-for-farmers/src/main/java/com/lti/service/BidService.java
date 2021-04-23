@@ -3,6 +3,8 @@ package com.lti.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -98,14 +100,16 @@ public class BidService {
 
 	public List<MarketPlace> getMarketPlaceCrops() {
 		List<MarketPlace> list = bidRepo.fetchMarketPlaceCrops();
+//		return list;
 		
-		for(MarketPlace mark: list) {
-			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));
-			
-		}
+//		for(MarketPlace mark: list) {
+//			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));	
+			//Need to return this as a list
+//			System.out.println(mark.getCropName());
+			//List<MarketPlace> result = mark.list();
+//		}
 		
 		return list;
 	}
-	
-
-}
+//	
+	}

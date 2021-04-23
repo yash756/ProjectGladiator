@@ -69,7 +69,20 @@ public class Farmer {
 	@OneToOne(mappedBy = "farmer")
 	private Request request;
 	
+	//test changes
+	@OneToOne(mappedBy = "farmer")
+	private ClaimInsurance claimInsurance;	
+	
 	//Getters and Setters
+	
+	//test changes
+	public ClaimInsurance getClaimInsurance() {
+		return claimInsurance;
+	}
+
+	public void setClaimInsurance(ClaimInsurance claimInsurance) {
+		this.claimInsurance = claimInsurance;
+	}
 	
 	public int getId() {
 		return id;

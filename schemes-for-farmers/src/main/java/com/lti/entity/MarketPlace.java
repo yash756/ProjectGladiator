@@ -1,5 +1,6 @@
 package com.lti.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,6 +32,11 @@ public class MarketPlace {
 	private double basePrice;
 	private String status;
 	private float quantity;
+	
+	@Column(name="start_time")
+	private LocalDateTime startTime;
+	@Column(name="end_time")
+	private LocalDateTime endTime;
 	
 	@Transient
 	private double maxBid;
@@ -132,6 +138,25 @@ public class MarketPlace {
 	public void setMaxBid(double maxBid) {
 		this.maxBid = maxBid;
 	}
+
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+
+	
+	
 	
 	
 	
