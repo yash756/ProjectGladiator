@@ -15,4 +15,7 @@ public class BidderRepository extends GenericRepository {
 	public Bidder findbyId(int id) {
 		return entityManager.find(Bidder.class, id);
 	} 
+	
+	
 }
+

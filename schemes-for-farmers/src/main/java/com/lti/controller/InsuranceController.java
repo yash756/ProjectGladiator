@@ -18,6 +18,8 @@ public class InsuranceController {
 	@Autowired
 	private InsuranceService insuranceService;
 	
+	
+	
 	@PostMapping("/calculate-premium")
 	public Insurance calculate(@RequestBody Insurance insurance) {
 		Insurance sample = insuranceService.calculatePremium(insurance);

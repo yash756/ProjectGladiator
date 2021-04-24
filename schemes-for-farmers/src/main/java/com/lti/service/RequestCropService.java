@@ -15,6 +15,7 @@ import com.lti.entity.Farmer;
 import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 import com.lti.exception.RequestCropServiceException;
+import com.lti.repository.BidRepo;
 import com.lti.repository.FarmerRepository;
 import com.lti.repository.MarketPlaceRepository;
 import com.lti.repository.RequestCropRepository;
@@ -31,6 +32,9 @@ public class RequestCropService {
 	
 	@Autowired
 	private MarketPlaceRepository marketRepo;
+	
+	@Autowired
+	private BidRepo bidRepo;
 
 	
 	public void register(Request request) {
@@ -64,6 +68,7 @@ public class RequestCropService {
 
 }
 	public int addToMarket(int requestId) {
+		System.out.println("check"+requestId);
 //		Request r = new Request();
 		Request request =  requestCropRepo.fetch(Request.class,requestId);
 		LocalDateTime start = LocalDateTime.now();
@@ -87,5 +92,26 @@ public class RequestCropService {
 			return m.getItemNo();
 		//}
 	}
+	
+	public List<MarketPlace> getMarketCrops() {
+		List<MarketPlace> list = requestCropRepo.fetchMarketCrop();
+		for(MarketPlace mark: list) {
+			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));
+		
+	}
+		return list;
+
+}
+	
+	public int approveAsSold(int itemNo) {
+//		Request r = new Request();
+		MarketPlace marketPlace =  requestCropRepo.fetch(MarketPlace.class,itemNo);
+		marketPlace.setStatus("sold");
+		marketRepo.save(marketPlace);
+			
+			return marketPlace.getItemNo();
+		//}
+	}
+	
 
 }

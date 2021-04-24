@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+<<<<<<< HEAD
+/.mvn/
+=======
+/.gitignore
+/.mvn/
+/mvnw
+/mvnw.cmd
+/pom.xml
+>>>>>>> branch 'master' of https://github.com/yash756/ProjectGladiator.git
+/src/
