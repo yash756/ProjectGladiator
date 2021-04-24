@@ -40,10 +40,12 @@ public class RequestCropRepository extends GenericRepository{
 	
 	public List<MarketPlace> fetchMarketCrop(){
 		LocalDateTime now = LocalDateTime.now();
+	
 		return
 				entityManager
 				.createQuery("select m from MarketPlace m where m.endTime < :now and m.status = :s")
-				.setParameter("now", now).setParameter("s","unsold")
+//				.createQuery("select m from Bid b INNER JOIN b.marketPlace m  where (b.bidAmount is not null) and b.itemNo = :item  and m.endTime < :now and m.status = :s")
+				.setParameter("now", now).setParameter("s","unsold")//.setParameter("item", now)
 				.getResultList();
 	}
 }

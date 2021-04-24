@@ -1,17 +1,22 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.Login;
 import com.lti.dto.LoginStatus;
 import com.lti.dto.RegisterFarmerStatus;
+import com.lti.dto.SoldCropDetails;
+import com.lti.entity.Bid;
 import com.lti.entity.Farmer;
+import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
 import com.lti.service.FarmerService;
 
@@ -58,5 +63,11 @@ public class FarmerRestController {
 			loginStatus.setMessage(e.getMessage());		
 			return loginStatus;
 		}
+	}
+	
+	@GetMapping(path="/farmerSoldCrops")
+	public List<SoldCropDetails> viewSoldCrops(@RequestParam("farmerId") int farmerId) {
+		List<SoldCropDetails> soldList = farmerService.getSoldCrops(farmerId);
+		return soldList;
 	}
 }
