@@ -10,14 +10,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+//import com.lti.dto.FarmerMarketPlaceCrops;
 import com.lti.dto.Login;
 import com.lti.dto.LoginStatus;
 import com.lti.dto.RegisterFarmerStatus;
 import com.lti.dto.SoldCropDetails;
-import com.lti.entity.Bid;
+//import com.lti.entity.Bid;
 import com.lti.entity.Farmer;
+
 import com.lti.entity.Notification;
 import com.lti.entity.Request;
+
+
+import com.lti.entity.MarketPlace;
+//import com.lti.entity.Request;
+
 import com.lti.exception.FarmerServiceException;
 import com.lti.service.FarmerService;
 
@@ -66,10 +73,18 @@ public class FarmerRestController {
 		}
 	}
 	
+
+	@GetMapping("/fetchFarmerMarketPlace")
+	public List<MarketPlace> viewMarketPlace(@RequestParam("id") int id) {
+		List<MarketPlace> marketPlace = farmerService.getMarketPlaceCrops(id);
+		return marketPlace;
+	}
+	
 	@GetMapping(path="/farmerSoldCrops")
 	public List<SoldCropDetails> viewSoldCrops(@RequestParam("farmerId") int farmerId) {
 		List<SoldCropDetails> soldList = farmerService.getSoldCrops(farmerId);
 		return soldList;
+
 	}
 	
 	@PostMapping("/notified")

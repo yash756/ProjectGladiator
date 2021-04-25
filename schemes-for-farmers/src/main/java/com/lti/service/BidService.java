@@ -1,5 +1,6 @@
 package com.lti.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class BidService {
 				bid.setBidAmount(bid.getBidAmount());
 				bid.setBidder(bidder);
 				bid.setMarketPlace(marketPlace);
+				bid.setDateOfBid(LocalDate.now());
 
 				bidRepo.save(bid);
 	
@@ -111,5 +113,5 @@ public class BidService {
 		
 		return list;
 	}
-//	
+	
 	}
