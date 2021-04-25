@@ -8,13 +8,28 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+//import com.lti.dto.FarmerMarketPlaceCrops;
+
 import com.lti.dto.SoldCropDetails;
 import com.lti.entity.Bid;
+
 import com.lti.entity.Farmer;
+import com.lti.entity.Notification;
 import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
 
+
+import com.lti.entity.Farmer;
+
+import com.lti.entity.MarketPlace;
+
+import com.lti.entity.Request;
+
+import com.lti.exception.FarmerServiceException;
+import com.lti.repository.BidRepo;
 import com.lti.repository.FarmerRepository;
+import com.lti.repository.NotificationRepository;
 
 @Service
 @Transactional
@@ -22,6 +37,12 @@ public class FarmerService {
 	
 	@Autowired
 	private FarmerRepository farmerRepository;
+	
+	@Autowired 
+	private NotificationRepository notificationRepository;
+
+	@Autowired
+	private BidRepo bidRepo;
 	
 	public int register(Farmer farmer){
 		if(farmerRepository.isFarmerPresent(farmer.getEmail()))
@@ -47,15 +68,33 @@ public class FarmerService {
 		}
 	}
 	
+
+	public List<MarketPlace> getMarketPlaceCrops(int id){
+		List<MarketPlace> list = farmerRepository.fetchMarketPlaceCrops(id);
+		for(MarketPlace mark: list) {
+			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));	
+		}
+		return list;
+	}
+
 	public List<SoldCropDetails> getSoldCrops(int farmerId) {
 		List<SoldCropDetails> list = farmerRepository.fetchSoldCrop(farmerId);
 		return list;
 
 }
+
 	public void updateProfilePic(int farmerId, String newFileName) {
 		Farmer farmer = farmerRepository.fetch(Farmer.class, farmerId);
 		farmer.setProfilePic(newFileName);
 		farmerRepository.save(farmer);
+	}
+	
+	public Notification getNotified(int farmerId) {
+		int nid = notificationRepository.show(farmerId);
+		Notification notification = notificationRepository.fetch(Notification.class, nid);
+		notification.setRead(true);
+		return notification;
+
 	}
 
 }

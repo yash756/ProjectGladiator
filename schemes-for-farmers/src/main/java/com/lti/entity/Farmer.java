@@ -69,17 +69,21 @@ public class Farmer {
 	private List<CropsSold> cropsSold;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "farmer")
+	@OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
 	private Insurance insurance;
 	
 	@JsonIgnore
 	@OneToOne(mappedBy = "farmer")
 	private Request request;
 	
-	@JsonIgnore
 	//test changes
+	@JsonIgnore
 	@OneToOne(mappedBy = "farmer")
-	private ClaimInsurance claimInsurance;	
+	private ClaimInsurance claimInsurance;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "farmer")
+	private Notification notification;
 	
 	//Getters and Setters
 	

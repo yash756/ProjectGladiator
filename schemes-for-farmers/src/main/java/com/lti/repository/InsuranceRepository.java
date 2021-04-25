@@ -4,6 +4,8 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.entity.Insurance;
+
 @Repository
 public class InsuranceRepository extends GenericRepository {
 	
