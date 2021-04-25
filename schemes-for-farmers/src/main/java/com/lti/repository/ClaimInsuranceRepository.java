@@ -4,6 +4,8 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.entity.Insurance;
+
 @Repository
 public class ClaimInsuranceRepository extends GenericRepository {
 	
@@ -15,6 +17,12 @@ public class ClaimInsuranceRepository extends GenericRepository {
 			return true;
 		else
 			return false;
+	}
+	
+	public int fetchInsurance(int farmerId) {
+		String jpql = "select i.policyNo from Insurance i where i.farmer.id = :farmerId";
+		Query query = entityManager.createQuery(jpql).setParameter("farmerId", farmerId);
+		return  (int) query.getSingleResult();
 	}
 	
 }

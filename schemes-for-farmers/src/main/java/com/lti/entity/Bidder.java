@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "bidder_tbl")
 public class Bidder {
@@ -39,9 +41,11 @@ public class Bidder {
 		
 		private String password;
 		
+		@JsonIgnore
 		@OneToMany(mappedBy="bidder")
 		private List<CropsSold> cropsSold;
 		
+		@JsonIgnore
 		@OneToMany(mappedBy="bidder")
 		private List<Bid> bids;
 

@@ -8,9 +8,18 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.lti.dto.FarmerMarketPlaceCrops;
+
+import com.lti.dto.SoldCropDetails;
+import com.lti.entity.Bid;
+
 import com.lti.entity.Farmer;
+
 import com.lti.entity.MarketPlace;
+
+import com.lti.entity.Request;
+
 import com.lti.exception.FarmerServiceException;
 import com.lti.repository.BidRepo;
 import com.lti.repository.FarmerRepository;
@@ -49,6 +58,7 @@ public class FarmerService {
 		}
 	}
 	
+
 	public List<MarketPlace> getMarketPlaceCrops(int id){
 		List<MarketPlace> list = farmerRepository.fetchMarketPlaceCrops(id);
 		for(MarketPlace mark: list) {
@@ -56,5 +66,12 @@ public class FarmerService {
 		}
 		return list;
 	}
+
+	public List<SoldCropDetails> getSoldCrops(int farmerId) {
+		List<SoldCropDetails> list = farmerRepository.fetchSoldCrop(farmerId);
+		return list;
+
+}
+
 
 }

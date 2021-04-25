@@ -2,6 +2,7 @@ package com.lti.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tbl_insurance")
@@ -44,11 +47,13 @@ public class Insurance {
 	@Column(name = "insurance_year")
 	private LocalDate year;
 	
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "farmer_id")
 	private Farmer farmer;
 	
-	@OneToOne(mappedBy = "insurance")
+	@JsonIgnore
+	@OneToOne(mappedBy = "insurance", cascade = CascadeType.ALL)
 	private ClaimInsurance claim;
 
 	public int getPolicyNo() {

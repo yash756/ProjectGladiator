@@ -1,6 +1,7 @@
 package com.lti.entity;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 @Entity
@@ -35,16 +39,16 @@ public class ClaimInsurance {
 	@Column(name = "claim_lossDate")
 	private LocalDate lossDate;
 	
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "insurance_policyNo")
 	private Insurance insurance;
 	
-	//making changes for test
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "farmer_id")
 	private Farmer farmer;
 	
-
 	public Farmer getFarmer() {
 		return farmer;
 	}

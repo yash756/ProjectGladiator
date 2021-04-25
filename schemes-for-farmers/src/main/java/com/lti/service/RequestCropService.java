@@ -15,6 +15,7 @@ import com.lti.entity.Farmer;
 import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 import com.lti.exception.RequestCropServiceException;
+import com.lti.repository.BidRepo;
 import com.lti.repository.FarmerRepository;
 import com.lti.repository.MarketPlaceRepository;
 import com.lti.repository.RequestCropRepository;
@@ -31,6 +32,9 @@ public class RequestCropService {
 	
 	@Autowired
 	private MarketPlaceRepository marketRepo;
+	
+	@Autowired
+	private BidRepo bidRepo;
 
 	
 	public void register(Request request) {
@@ -91,6 +95,10 @@ public class RequestCropService {
 	
 	public List<MarketPlace> getMarketCrops() {
 		List<MarketPlace> list = requestCropRepo.fetchMarketCrop();
+		for(MarketPlace mark: list) {
+			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));
+		
+	}
 		return list;
 
 }

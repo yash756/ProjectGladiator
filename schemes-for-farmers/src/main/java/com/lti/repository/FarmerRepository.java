@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.dto.SoldCropDetails;
+import com.lti.entity.Bid;
 import com.lti.entity.Farmer;
 import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
@@ -33,6 +35,7 @@ public class FarmerRepository extends GenericRepository{
 		return entityManager.find(Farmer.class, id);
 	}
 	
+
 	public List<MarketPlace> fetchMarketPlaceCrops(int id){
 		LocalDateTime now = LocalDateTime.now();
 		return entityManager
@@ -41,4 +44,22 @@ public class FarmerRepository extends GenericRepository{
 				.setParameter("dt",now)
 				.getResultList();
 	}
+
+public List<SoldCropDetails> fetchSoldCrop(int farmerId){
+		
+		return
+				entityManager
+				//.createQuery("select  m.cropName, m.quantity, b.bidAmount  from MarketPlace")
+				.createQuery("select new com.lti.dto.SoldCropDetails( m.itemNo,m.cropName,m.quantity,m.basePrice,max(b.bidAmount),r.requestId ) "
+						+ "from MarketPlace m JOIN m.bids b JOIN m.request r "
+						+ "WHERE m.status='sold' and r.farmer.id = :id  "
+						+ "GROUP BY m.itemNo,m.cropName,m.quantity,m.basePrice,r.requestId")
+				.setParameter("id", farmerId)
+				.getResultList();
+	}
+
+
+
 }
+
+
