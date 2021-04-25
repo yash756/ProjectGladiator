@@ -18,6 +18,10 @@ import com.lti.dto.SoldCropDetails;
 //import com.lti.entity.Bid;
 import com.lti.entity.Farmer;
 
+import com.lti.entity.Notification;
+import com.lti.entity.Request;
+
+
 import com.lti.entity.MarketPlace;
 //import com.lti.entity.Request;
 
@@ -81,5 +85,11 @@ public class FarmerRestController {
 		List<SoldCropDetails> soldList = farmerService.getSoldCrops(farmerId);
 		return soldList;
 
+	}
+	
+	@PostMapping("/notified")
+	public Notification notified(@RequestBody Farmer farmer) {
+		return farmerService.getNotified(farmer.getId());
+		//return notification;
 	}
 }
