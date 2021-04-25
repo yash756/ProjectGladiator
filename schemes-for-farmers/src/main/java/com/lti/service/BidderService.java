@@ -1,12 +1,15 @@
 package com.lti.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lti.dto.BroughtCropDetails;
+import com.lti.dto.SoldCropDetails;
 import com.lti.entity.Bidder;
 
 import com.lti.exception.BidderServiceException;
@@ -45,5 +48,11 @@ public class BidderService {
 			throw new BidderServiceException("Invalid email/password");
 		}
 	}
+	
+	public List<BroughtCropDetails> getBroughtCrops(int bidderId) {
+		List<BroughtCropDetails> list = bidderRepository.fetchBroughtCrop(bidderId);
+		return list;
+
+}
 
 }

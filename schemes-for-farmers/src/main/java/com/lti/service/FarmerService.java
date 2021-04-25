@@ -52,5 +52,10 @@ public class FarmerService {
 		return list;
 
 }
+	public void updateProfilePic(int farmerId, String newFileName) {
+		Farmer farmer = farmerRepository.fetch(Farmer.class, farmerId);
+		farmer.setProfilePic(newFileName);
+		farmerRepository.save(farmer);
+	}
 
 }

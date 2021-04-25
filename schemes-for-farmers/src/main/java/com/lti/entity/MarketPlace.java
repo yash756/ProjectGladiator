@@ -39,8 +39,17 @@ public class MarketPlace {
 	private LocalDateTime endTime;
 	
 	@Transient
-	private double maxBid;
+	private double maxBid ;
 	
+//	public MarketPlace() {
+//		
+//	}
+//	
+//	public MarketPlace(double maxBid) {
+//		super();
+//		this.maxBid = 0.0;
+//	}
+
 	@JsonIgnore
 	@OneToMany(mappedBy="marketPlace")
 	private List<Bid> bids;
@@ -53,6 +62,7 @@ public class MarketPlace {
 	@OneToOne
 	@JoinColumn(name="request_id")
 	private Request request;
+
 
 	public int getItemNo() {
 		return itemNo;

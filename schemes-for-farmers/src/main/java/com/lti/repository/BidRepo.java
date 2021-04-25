@@ -14,7 +14,7 @@ public class BidRepo extends GenericRepository{
 	
 	
 	public double maxbid(int id) {
-		return (double) entityManager.createQuery("select MAX(b.bidAmount) from Bid b where b.marketPlace.itemNo = :cid")
+		return (double) entityManager.createQuery("select COALESCE(MAX(b.bidAmount),0) from Bid b where b.marketPlace.itemNo = :cid ")
 				.setParameter("cid", id).getSingleResult();
 	}
 	
