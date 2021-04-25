@@ -13,13 +13,12 @@ import com.lti.dto.FarmerMarketPlaceCrops;
 
 import com.lti.dto.SoldCropDetails;
 import com.lti.entity.Bid;
-<<<<<<< HEAD
+
 import com.lti.entity.Farmer;
 import com.lti.entity.Notification;
 import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
-=======
->>>>>>> branch 'master' of https://github.com/yash756/ProjectGladiator.git
+
 
 import com.lti.entity.Farmer;
 
