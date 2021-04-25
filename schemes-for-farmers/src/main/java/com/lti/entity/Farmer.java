@@ -77,7 +77,11 @@ public class Farmer {
 	//test changes
 	@JsonIgnore
 	@OneToOne(mappedBy = "farmer")
-	private ClaimInsurance claimInsurance;	
+	private ClaimInsurance claimInsurance;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "farmer")
+	private Notification notification;
 	
 	//Getters and Setters
 	

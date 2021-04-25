@@ -16,6 +16,7 @@ import com.lti.dto.RegisterFarmerStatus;
 import com.lti.dto.SoldCropDetails;
 import com.lti.entity.Bid;
 import com.lti.entity.Farmer;
+import com.lti.entity.Notification;
 import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
 import com.lti.service.FarmerService;
@@ -69,5 +70,11 @@ public class FarmerRestController {
 	public List<SoldCropDetails> viewSoldCrops(@RequestParam("farmerId") int farmerId) {
 		List<SoldCropDetails> soldList = farmerService.getSoldCrops(farmerId);
 		return soldList;
+	}
+	
+	@PostMapping("/notified")
+	public Notification notified(@RequestBody Farmer farmer) {
+		return farmerService.getNotified(farmer.getId());
+		//return notification;
 	}
 }
