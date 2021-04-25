@@ -1,16 +1,18 @@
 package com.lti.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.lti.dto.FarmerMarketPlaceCrops;
 import com.lti.entity.Farmer;
+import com.lti.entity.MarketPlace;
 import com.lti.exception.FarmerServiceException;
-
+import com.lti.repository.BidRepo;
 import com.lti.repository.FarmerRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class FarmerService {
 	
 	@Autowired
 	private FarmerRepository farmerRepository;
+	
+	@Autowired
+	private BidRepo bidRepo;
 	
 	public int register(Farmer farmer){
 		if(farmerRepository.isFarmerPresent(farmer.getEmail()))
@@ -42,6 +47,14 @@ public class FarmerService {
 		//catch(NoResultException e) {
 			throw new FarmerServiceException("Invalid email/password");
 		}
+	}
+	
+	public List<MarketPlace> getMarketPlaceCrops(int id){
+		List<MarketPlace> list = farmerRepository.fetchMarketPlaceCrops(id);
+		for(MarketPlace mark: list) {
+			mark.setMaxBid(bidRepo.maxbid(mark.getItemNo()));	
+		}
+		return list;
 	}
 
 }

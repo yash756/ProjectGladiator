@@ -1,10 +1,12 @@
 package com.lti.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.lti.entity.Farmer;
+import com.lti.entity.MarketPlace;
 import com.lti.entity.Request;
 
 @Repository
@@ -31,5 +33,12 @@ public class FarmerRepository extends GenericRepository{
 		return entityManager.find(Farmer.class, id);
 	}
 	
-	
+	public List<MarketPlace> fetchMarketPlaceCrops(int id){
+		LocalDateTime now = LocalDateTime.now();
+		return entityManager
+				.createQuery("select m from MarketPlace m JOIN m.request r where r.farmer.id=:cid and m.endTime >:dt")
+				.setParameter("cid", id)
+				.setParameter("dt",now)
+				.getResultList();
+	}
 }
