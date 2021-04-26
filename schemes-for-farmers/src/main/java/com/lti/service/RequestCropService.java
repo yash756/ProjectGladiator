@@ -68,13 +68,17 @@ public class RequestCropService {
 
 }
 	public int addToMarket(int requestId) {
-		//System.out.println("check"+requestId);
-//		Request r = new Request();
+		
+
 		Request request =  requestCropRepo.fetch(Request.class,requestId);
 		LocalDateTime start = LocalDateTime.now();
 		double bidCuttOffTime = request.getBidCutoffTime();
 		LocalDateTime end = start.plusHours((long) bidCuttOffTime);
 		
+		if(requestCropRepo.checkIfAddedToMarket(requestId)) {
+			throw new RequestCropServiceException("Already added to market place");
+		}
+		else {
 		MarketPlace m = new MarketPlace();
 		
 //		List<Request> list = farmerRepo.fetchRequestCrop();
@@ -94,6 +98,7 @@ public class RequestCropService {
 			
 			return m.getItemNo();
 		//}
+		}	
 	}
 	
 	public List<MarketPlace> getMarketCrops() {

@@ -3,6 +3,8 @@ package com.lti.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.lti.entity.MarketPlace;
@@ -47,5 +49,17 @@ public class RequestCropRepository extends GenericRepository{
 //				.createQuery("select m from Bid b INNER JOIN b.marketPlace m  where (b.bidAmount is not null) and b.itemNo = :item  and m.endTime < :now and m.status = :s")
 				.setParameter("now", now).setParameter("s","available")//.setParameter("item", now)
 				.getResultList();
+	}
+	
+	public boolean checkIfAddedToMarket(int requestId) {
+		String jpql = "select count(m.itemNo) from MarketPlace m where m.request.requestId= :requestId";
+		Query query = entityManager.createQuery(jpql).setParameter("requestId", requestId);
+		Long flag = (Long) query.getSingleResult();
+		if(flag == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

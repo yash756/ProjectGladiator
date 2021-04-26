@@ -100,6 +100,13 @@ public class FarmerRestController {
 
 	}
 	
+	@GetMapping(path="/farmerUnSoldCrops")
+	public List<MarketPlace> viewUnSoldCrops(@RequestParam("farmerId") int farmerId) {
+		List<MarketPlace> soldList = farmerService.getUnSoldCrops(farmerId);
+		return soldList;
+
+	}
+	
 	@PostMapping("/notified")
 	/*public Notification notified(@RequestBody Farmer farmer) {
 		return farmerService.getNotified(farmer.getId());

@@ -23,7 +23,7 @@ public class BidRepo extends GenericRepository{
 		return entityManager
 				.createQuery("select m from MarketPlace m where m.status = :st")
 				//select m from MarketPlace m where m.status = :st and m.expiryDate> :dt
-				.setParameter("st", "unsold")
+				.setParameter("st", "available")
 				//.setParameter("dt",LocalDateTime.now())
 				.getResultList();
 		

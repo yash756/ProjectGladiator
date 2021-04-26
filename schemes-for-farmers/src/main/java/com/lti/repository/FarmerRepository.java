@@ -58,6 +58,17 @@ public List<SoldCropDetails> fetchSoldCrop(int farmerId){
 				.getResultList();
 	}
 
+public List<MarketPlace> fetchUnSoldCrop(int farmerId){
+	
+	return
+			entityManager
+			//.createQuery("select  m.cropName, m.quantity, b.bidAmount  from MarketPlace")
+			.createQuery("select  m "
+					+ "from MarketPlace m  JOIN m.request r "
+					+ "WHERE m.status='unsold' and r.farmer.id = :id  ")
+			.setParameter("id", farmerId)
+			.getResultList();
+}
 
 
 }

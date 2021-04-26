@@ -82,6 +82,12 @@ public class FarmerService {
 		return list;
 
 }
+	
+	public List<MarketPlace> getUnSoldCrops(int farmerId) {
+		List<MarketPlace> list = farmerRepository.fetchUnSoldCrop(farmerId);
+		return list;
+
+}
 
 	public void updateProfilePic(int farmerId, String newFileName) {
 		Farmer farmer = farmerRepository.fetch(Farmer.class, farmerId);
