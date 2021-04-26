@@ -93,4 +93,23 @@ public class RequestCropController {
 		}
 	}
 	
+	@GetMapping(path="/approveAsUnsold")
+	public Status approveAsUnsold(@RequestParam("itemNo") int itemNo) {
+		try {
+			int id = requestCropService.approveAsUnsold(itemNo);
+			Status status = new Status();
+			status.setStatus(true);
+			status.setMessage("Crop Unsold");
+			status.setId(id);
+			return status;
+		} catch (RequestCropServiceException e) {
+
+			Status status = new Status();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
+
+		}
+	}
+	
 }

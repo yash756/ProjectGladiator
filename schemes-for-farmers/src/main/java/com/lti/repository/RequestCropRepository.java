@@ -45,7 +45,7 @@ public class RequestCropRepository extends GenericRepository{
 				entityManager
 				.createQuery("select m from MarketPlace m where m.endTime < :now and m.status = :s")
 //				.createQuery("select m from Bid b INNER JOIN b.marketPlace m  where (b.bidAmount is not null) and b.itemNo = :item  and m.endTime < :now and m.status = :s")
-				.setParameter("now", now).setParameter("s","unsold")//.setParameter("item", now)
+				.setParameter("now", now).setParameter("s","available")//.setParameter("item", now)
 				.getResultList();
 	}
 }

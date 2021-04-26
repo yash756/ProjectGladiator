@@ -68,7 +68,7 @@ public class RequestCropService {
 
 }
 	public int addToMarket(int requestId) {
-		System.out.println("check"+requestId);
+		//System.out.println("check"+requestId);
 //		Request r = new Request();
 		Request request =  requestCropRepo.fetch(Request.class,requestId);
 		LocalDateTime start = LocalDateTime.now();
@@ -82,12 +82,15 @@ public class RequestCropService {
 			m.setCropName(request.getCropName());
 			m.setCropType(request.getCropType());
 			m.setBasePrice(request.getBasePrice());
-			m.setStatus("unsold");
+			m.setStatus("available");
 			m.setQuantity(request.getQuantity());
 			m.setStartTime(start);
 			m.setEndTime(end);
 			m.setRequest(request);
 			marketRepo.save(m);
+			
+//			request.setCondition("dontshow");
+//			requestCropRepo.save(request);
 			
 			return m.getItemNo();
 		//}
@@ -107,6 +110,16 @@ public class RequestCropService {
 //		Request r = new Request();
 		MarketPlace marketPlace =  requestCropRepo.fetch(MarketPlace.class,itemNo);
 		marketPlace.setStatus("sold");
+		marketRepo.save(marketPlace);
+			
+			return marketPlace.getItemNo();
+		//}
+	}
+	
+	public int approveAsUnsold(int itemNo) {
+		Request r = new Request();
+		MarketPlace marketPlace =  requestCropRepo.fetch(MarketPlace.class,itemNo);
+		marketPlace.setStatus("unsold");
 		marketRepo.save(marketPlace);
 			
 			return marketPlace.getItemNo();
