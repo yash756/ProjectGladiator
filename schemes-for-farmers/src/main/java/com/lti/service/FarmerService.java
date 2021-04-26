@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.dto.SoldCropDetails;
 import com.lti.entity.Bid;
+
 import com.lti.entity.Farmer;
 import com.lti.entity.Notification;
 import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
 import com.lti.exception.NotificationException;
+
 import com.lti.entity.Farmer;
 
 import com.lti.entity.MarketPlace;
@@ -80,6 +82,12 @@ public class FarmerService {
 		return list;
 
 }
+
+	public void updateProfilePic(int farmerId, String newFileName) {
+		Farmer farmer = farmerRepository.fetch(Farmer.class, farmerId);
+		farmer.setProfilePic(newFileName);
+		farmerRepository.save(farmer);
+	}
 	
 	public Notification getNotified(int farmerId) {
 		
@@ -92,6 +100,7 @@ public class FarmerService {
 			notification.setRead(true);
 			return notification;
 		}
+
 	}
 
 }

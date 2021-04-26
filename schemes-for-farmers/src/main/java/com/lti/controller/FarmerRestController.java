@@ -1,8 +1,11 @@
 package com.lti.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.lti.dto.FarmerMarketPlaceCrops;
 import com.lti.dto.Login;
 import com.lti.dto.LoginStatus;
+
 import com.lti.dto.NotificationStatus;
+
 import com.lti.dto.RegisterFarmerStatus;
 import com.lti.dto.SoldCropDetails;
 import com.lti.dto.Status;
+
+import com.lti.dto.Status;
+import com.lti.entity.Bid;
+
 //import com.lti.entity.Bid;
+
 import com.lti.entity.Farmer;
 
 import com.lti.entity.Notification;
@@ -113,4 +123,31 @@ public class FarmerRestController {
 			
 		}
 	}
+	
+	/*@PostMapping("/pic-upload")
+	public Status upload(ProfilePic profilePicDetails) {
+		int farmerId = profilePicDetails.getFarmerId();
+		
+		String imgUploadLocation = "C:\\Users\\vadde\\Documents\\Training\\uploads";
+		String uploadedFileName = profilePicDetails.getProfilePic().getOriginalFilename();
+		String newFileName = farmerId + "-" + uploadedFileName;
+		String targetFileName = imgUploadLocation + newFileName;
+		
+		try {
+			FileCopyUtils.copy(profilePicDetails.getProfilePic().getInputStream(), new FileOutputStream(targetFileName));
+		}
+		catch(IOException e) {
+			e.printStackTrace(); //hope no error would occur
+			Status status = new Status();
+			status.setStatus(false);
+			status.setMessage("Profilepic upload failed!");
+		}
+		
+		farmerService.updateProfilePic(farmerId, newFileName);
+		
+		Status status = new Status();
+		status.setStatus(true);
+		status.setMessage("Profilepic uploaded successfully!");
+		return status;
+	}*/
 }

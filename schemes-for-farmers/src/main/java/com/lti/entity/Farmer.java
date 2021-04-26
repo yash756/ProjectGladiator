@@ -62,6 +62,8 @@ public class Farmer {
 	@Column(name = "farmer_password")
 	private String password;
 	
+	private String profilePic;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "farmer")
 	private List<CropsSold> cropsSold;
@@ -228,6 +230,14 @@ public class Farmer {
 
 	public void setLandPincode(String landPincode) {
 		this.landPincode = landPincode;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 	
 	
