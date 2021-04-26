@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,6 +44,18 @@ public class Request {
 //	@Column(name="end_date")
 //	private LocalDate endDate;
 	
+	@Transient
+	private String condition;
+	
+	public Request() {
+		
+	}
+	
+	public Request(String condition) {
+		super();
+		this.condition = "show";
+	}
+
 	@JsonIgnore
 	@OneToOne(mappedBy="request")
 	private MarketPlace marketplace;
@@ -150,6 +163,14 @@ public class Request {
 
 	public void setFarmer(Farmer farmer) {
 		this.farmer = farmer;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 	
 	
