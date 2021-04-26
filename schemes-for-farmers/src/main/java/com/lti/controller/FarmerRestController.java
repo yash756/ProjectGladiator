@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.lti.dto.FarmerMarketPlaceCrops;
 import com.lti.dto.Login;
 import com.lti.dto.LoginStatus;
-import com.lti.dto.ProfilePic;
+
+import com.lti.dto.NotificationStatus;
+
 import com.lti.dto.RegisterFarmerStatus;
 import com.lti.dto.SoldCropDetails;
+import com.lti.dto.Status;
 
 import com.lti.dto.Status;
 import com.lti.entity.Bid;
@@ -35,6 +38,7 @@ import com.lti.entity.MarketPlace;
 //import com.lti.entity.Request;
 
 import com.lti.exception.FarmerServiceException;
+import com.lti.exception.NotificationException;
 import com.lti.service.FarmerService;
 
 @RestController
@@ -97,12 +101,30 @@ public class FarmerRestController {
 	}
 	
 	@PostMapping("/notified")
-	public Notification notified(@RequestBody Farmer farmer) {
+	/*public Notification notified(@RequestBody Farmer farmer) {
 		return farmerService.getNotified(farmer.getId());
 		//return notification;
+	}*/
+	
+	public Status notified(@RequestBody Farmer farmer) {
+		try {
+			Notification notification = farmerService.getNotified(farmer.getId());
+			NotificationStatus status = new NotificationStatus();
+			status.setId(notification.getNotificationId());
+			status.setMessage(notification.getContent());
+			status.setStatus(true);
+			return status;
+		}
+		catch (NotificationException e) {
+			NotificationStatus status = new NotificationStatus();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
+			
+		}
 	}
 	
-	@PostMapping("/pic-upload")
+	/*@PostMapping("/pic-upload")
 	public Status upload(ProfilePic profilePicDetails) {
 		int farmerId = profilePicDetails.getFarmerId();
 		
@@ -127,5 +149,5 @@ public class FarmerRestController {
 		status.setStatus(true);
 		status.setMessage("Profilepic uploaded successfully!");
 		return status;
-	}
+	}*/
 }

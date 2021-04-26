@@ -18,7 +18,7 @@ import com.lti.entity.Farmer;
 import com.lti.entity.Notification;
 import com.lti.entity.Request;
 import com.lti.exception.FarmerServiceException;
-
+import com.lti.exception.NotificationException;
 
 import com.lti.entity.Farmer;
 
@@ -90,10 +90,16 @@ public class FarmerService {
 	}
 	
 	public Notification getNotified(int farmerId) {
-		int nid = notificationRepository.show(farmerId);
-		Notification notification = notificationRepository.fetch(Notification.class, nid);
-		notification.setRead(true);
-		return notification;
+		
+		if(notificationRepository.seen(farmerId)) {
+			throw new NotificationException("No new notification");
+		}
+		else {
+			int nid = notificationRepository.show(farmerId);
+			Notification notification = notificationRepository.fetch(Notification.class, nid);
+			notification.setRead(true);
+			return notification;
+		}
 
 	}
 
