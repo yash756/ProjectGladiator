@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.NotificationStatus;
 import com.lti.dto.Status;
 import com.lti.entity.ClaimInsurance;
+import com.lti.exception.NotificationException;
 import com.lti.service.ApproveClaimService;
 
 @RestController
@@ -30,12 +31,20 @@ public class ApproveClaimsController {
 	
 	@PostMapping("/actually-Approve")
 	public Status approve(@RequestBody ClaimInsurance claimInsurance) {
-		int id = approveClaimService.approve(claimInsurance);
-		NotificationStatus status = new NotificationStatus();
-		status.setId(id);
-		status.setMessage("Claim approved!! Notification sent to farmer");
-		status.setStatus(true);
-		return status;
+		try {
+			int id = approveClaimService.approve(claimInsurance);
+			NotificationStatus status = new NotificationStatus();
+			status.setId(id);
+			status.setMessage("Claim approved!! Notification sent to farmer");
+			status.setStatus(true);
+			return status;
+		}
+		catch (NotificationException e) {
+			NotificationStatus status = new NotificationStatus();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
+		}
 	}
 
 }
