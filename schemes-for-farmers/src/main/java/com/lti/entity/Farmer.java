@@ -26,7 +26,7 @@ public class Farmer {
 	private String name;
 	
 	@Column(name = "farmer_contact")
-	private int contact;
+	private long contact;
 	
 	@Column(name = "farmer_email")
 	private String email;
@@ -112,11 +112,11 @@ public class Farmer {
 		this.name = name;
 	}
 
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 

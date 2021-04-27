@@ -23,7 +23,7 @@ public class Bidder {
 		@Column(name="full_name")
 		private String fullName;
 		@Column(name="contact_number")
-		private int contactNumber;
+		private long contactNumber;
 		@Column(name="email_id")
 		private String emailId;
 		private String address;
@@ -65,11 +65,11 @@ public class Bidder {
 			this.fullName = fullName;
 		}
 
-		public int getContactNumber() {
+		public long getContactNumber() {
 			return contactNumber;
 		}
 
-		public void setContactNumber(int contactNumber) {
+		public void setContactNumber(long contactNumber) {
 			this.contactNumber = contactNumber;
 		}
 
